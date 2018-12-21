@@ -78,7 +78,7 @@ extern int copy_int(char *a, int b)
 
 extern string_struct add_string_list(string_struct str, char *elem, int elem_size)
 {
-    if(str.size_current+1 == str.size)//Если выходим за пределы массива то перевыделяем память под него
+    if(str.size_current + 1 == str.size)//Если выходим за пределы массива то перевыделяем память под него
     {
         str.size*=2;
         str.array = realloc(str.array, sizeof(char*) * str.size);
@@ -228,7 +228,7 @@ static string_struct input_self(string_struct lst, char *buf)
     if(c == END_OF_INP)
     {
         free(str);
-        raise(SIGKILL);
+        raise(SIGUSR1);
         return lst;
         // return NULL;
     }
@@ -309,7 +309,7 @@ static string_struct input_self(string_struct lst, char *buf)
         if( c >= '0' && c <= '9' ||
             c >= 'a' && c <= 'z' ||
             c >= 'A' && c <= 'Z' ||
-            c == '&' || c == '_' || c == '/' || c == '.' || c == '-')
+            c == '&' || c == '_' || c == '/' || c == '.' || c == '-' || c == '$')
         {
             str[i++] = c;
             c = get_char(buf,&buf_i);

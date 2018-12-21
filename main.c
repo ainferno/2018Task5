@@ -16,17 +16,22 @@ void my_end()
 {
     PROG_END = 0;
 }
-
+void sigC()
+{
+    printf("\n");
+    return;
+}
 int main()
 {
     tree tr = NULL;
     int n = 0;
     struct cell* MainTable = NULL;//Table of PID process
     string_struct lst = init_string_list();
-    void (*old)() = signal(SIGKILL, my_end);
-    
+    signal(SIGUSR1, my_end);
+    void (*old)() = signal(SIGINT, SIG_IGN);
     while(PROG_END)
     {
+        signal(SIGINT, SIG_IGN);
         lst = input(lst);
         if(lst.size_current != 0)
         {
@@ -34,6 +39,7 @@ int main()
             print_string_list(lst);
             tr = build_tree(lst, n);
             print_tree(tr, 1);
+            signal(SIGINT, sigC);
             runexec(tr, MainTable);
             clean_string_list(lst);
             clear_tree(tr);

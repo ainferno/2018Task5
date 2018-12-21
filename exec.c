@@ -89,11 +89,9 @@ void runexec(tree root, struct cell* MainTable)
             dup2(fio, 1);
             close(fio);
         }
-        if(!strcmp(root->argv[0],"pwd"))//Обработка pwd
+        if (!strcmp(root->argv[0],"exit"))
         {
-            char s[200];
-            getcwd(s,200);
-            printf("%s\n", s);
+            raise(SIGUSR1);
             exit(0);
         }
         if (!strcmp(root->argv[0],"cd"))//Обработка cd

@@ -24,12 +24,13 @@ tree init()
 
 tree addArg(tree tr, int i, char* str)
 {
-    if (i>=ArgMax) 
+    if (i+1 >= ArgMax) 
     {    
         ArgMax *=2;
         tr->argv = realloc(tr->argv,sizeof(char*)*ArgMax);
     }
     tr->argv[i] = str;
+    tr->argv[i+1] = NULL;
     return tr;
 }
 
